@@ -1,7 +1,13 @@
-import { createStore } from "redux";
-import rootReducer from "./reducers/rootReducer";
+import { configureStore } from "@reduxjs/toolkit";
+import commentReducer from "../features/comments/comments";
+import replyReducer from "../features/replies/replies";
 
-const store = createStore(rootReducer);
+const store = configureStore({
+  reducer: {
+    comments: commentReducer,
+    replies: replyReducer,
+  },
+});
 
 export default store;
 /*

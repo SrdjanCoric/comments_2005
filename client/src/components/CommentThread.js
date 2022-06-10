@@ -3,15 +3,16 @@ import Comment from "./Comment";
 import axios from "axios";
 import { repliesReceived } from "../actions/replyActions";
 import { useDispatch } from "react-redux";
+import { addReplies } from "../features/replies/replies";
 
 const CommentThread = ({ comment }) => {
   const dispatch = useDispatch();
   const handleMoreReplies = async (e) => {
     e.preventDefault();
     const id = comment.id;
-    const { data } = await axios.get(`/api/comment_replies?comment_id=${id}`);
+
     // {type: "REPLIES_RECEIVED", payload: data}
-    dispatch(repliesReceived(data));
+    dispatch(addReplies(id));
   };
   let replies = useSelector((state) => state.replies).filter(
     (r) => r.comment_id === comment.id

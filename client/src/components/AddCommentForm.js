@@ -2,6 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { commentAdded } from "../actions/commentActions";
+import { addComment } from "../features/comments/comments";
 
 const AddCommentForm = () => {
   const [author, setAuthor] = useState("");
@@ -12,9 +13,8 @@ const AddCommentForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await axios.post("/api/comments", { author, body });
-      dispatch(commentAdded(data));
-      resetInputs();
+      const newComment = { author, body };
+      dispatch(addComment({ newComment, callback: resetInputs }));
     } catch (e) {
       console.error(e);
     }
