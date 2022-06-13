@@ -1,12 +1,13 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { addComment, CommentContext } from "../context/comments-context";
 
-const AddCommentForm = ({ onSubmit }) => {
+const AddCommentForm = () => {
   const [author, setAuthor] = useState("");
   const [body, setBody] = useState("");
-
+  const { dispatch: commentsDispatch } = useContext(CommentContext);
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSubmit({ author, body }, resetInputs);
+    addComment({ author, body }, commentsDispatch, resetInputs);
   };
   const resetInputs = () => {
     setAuthor("");
